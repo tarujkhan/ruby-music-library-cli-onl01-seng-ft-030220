@@ -1,4 +1,5 @@
 class Genre 
+  extend Concerns::Findable
   attr_accessor :name, :songs
 
   @@all = []
@@ -7,6 +8,7 @@ class Genre
     @name = name 
     #self.artist = artist if artist
     @songs = []
+    
   
 end 
 
@@ -15,21 +17,18 @@ def self.all
 end 
 
 def self.destroy_all
-  @@all.clear
+  all.clear
 end 
 
  def save
-   @@all << self 
+   self.class.all << self 
  end 
 
 def self.create(name)
   created_genre = self.new(name)
-  @@all << created_genre.save
+ created_genre.save
+ created_genre
   end 
-
-def songs
-  @songs 
-end 
 
 def artists
   @new_array = []
